@@ -1,0 +1,69 @@
+Order of operations:
+
+1) Create model i.e. Tournament
+- Create the class in model folder
+- Initialize variables
+- Create constructor in model class
+- Constructor with @Jsonproperty annotations
+- Create getter methods
+
+2) Create dao interface i.e. TournamentDao
+- Create the memberDao interface in dao folder
+- Create default class
+- Define functions without bodies
+
+3) Create dao class (access service) i.e TournamentAccessService
+- Create a DB object that is a List<TYPE> i.e. List<Tournament>
+- Override methods in the class
+    - Default method (insert TYPE) -> DB.add(use getter method for each variable defined in the class, i.e.
+    tournament.getName())
+    - Select All method - just returns the DB object.
+    - Create optional methods that return a filtered list
+        - i.e.
+        public Optional<Tournament> selectTournamentByName(String tournamentName) {
+            DB.stream().filter(tournament -> tournament.getTournamentName().equals(tournamentName)).findFirst();
+           }
+
+4) Create the service i.e. Tournament Service
+- Annotate the class as a service using @Service
+- Create a final instance of the interface i.e. private final TournamentDao tournamentDao;
+- Create an Autowired Service constructor
+    @Autowired
+    public TournamentService(@Qualifier("tournamentDao") TournamentDao tournamentsDao) {
+            this.tournamentDao = tournamentDao;
+        }
+- Create the ADD method
+    public int addTournament(Tournament tournament) {
+            return tournamentDao.insertTournament(tournament);
+        }
+- Create get methods using the tournamentDao
+    public List<Tournament> getAllTournament() {
+            return tournamentDao.selectAllTournaments();
+        }
+
+5) Create the controller i.e. Tournament Controller
+- Start with annotations above your class
+    @RequestMapping("api/tournament")
+    @RestController
+- Create an instance of the service class
+    private final TournamentService tournamentService;
+- Create a constructor for the TournamentController class using the tournamentService class
+     @Autowired
+        public MemberController(MemberService memberService) {
+            this.memberService = memberService;
+        }
+- Create default post mapping - allows you to enter in new object instances
+@PostMapping
+    public void addMember(@RequestBody Member member) {
+        memberService.addMember(member);
+    }
+- Create default get mapping - allows you to get all the object instances in the DB
+ @GetMapping
+    public List<Member> getAllMembers() {
+        return memberService.getAllMembers();
+    }
+- Create get mappings for all other get methods
+@GetMapping(path = "/name={memberName}")
+    public Member getMemberByName(@PathVariable("memberName") String memberName) {
+        return memberService.getMemberByName(memberName).orElse(null);
+    }
