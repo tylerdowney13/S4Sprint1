@@ -30,8 +30,8 @@ public class MemberService {
         return memberDao.selectMemberByName(memberName);
     }
 
-    public Optional<Member> getMemberByEmail(String memberAddress) {
-        return memberDao.selectMemberByEmail(memberAddress);
+    public Optional<Member> getMemberByEmail(String memberEmail) {
+        return memberDao.selectMemberByEmail(memberEmail);
     }
 
     public Optional<Member> getMemberByPhone(String memberPhone) {

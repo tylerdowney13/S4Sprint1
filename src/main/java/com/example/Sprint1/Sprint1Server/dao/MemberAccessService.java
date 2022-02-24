@@ -31,11 +31,11 @@ public class MemberAccessService implements MemberDao {
 
     @Override
     public Optional<Member> selectMemberByEmail(String memberEmail) {
-        return DB.stream().filter(member -> member.getMemberName().equals(memberEmail)).findFirst();
+        return DB.stream().filter(member -> member.getMemberEmail().equals(memberEmail)).findFirst();
     }
 
     @Override
     public Optional<Member> selectMemberByPhone(String memberPhone) {
-        return DB.stream().filter(member -> member.getMemberName().equals(memberPhone)).findFirst();
+        return DB.stream().filter(member -> member.getMemberPhone().equals(memberPhone)).findFirst();
     }
 }

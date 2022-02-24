@@ -37,7 +37,7 @@ public class MemberController {
         return memberService.getMemberByEmail(memberEmail).orElse(null);
     }
 
-    @GetMapping(path = "/email={memberPhone}")
+    @GetMapping(path = "/phone={memberPhone}")
     public Member getMemberByPhone(@PathVariable("memberPhone") String memberPhone) {
         return memberService.getMemberByPhone(memberPhone).orElse(null);
     }
