@@ -1,7 +1,9 @@
 package com.example.Sprint1.Sprint1Server;
 
 import com.example.Sprint1.Sprint1Server.dao.MemberAccessService;
+import com.example.Sprint1.Sprint1Server.dao.TournamentAccessService;
 import com.example.Sprint1.Sprint1Server.model.Member;
+import com.example.Sprint1.Sprint1Server.model.Tournament;
 import com.example.Sprint1.Sprint1Server.service.MemberService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -101,5 +103,91 @@ class Sprint1ServerApplicationTests {
 	}
 
 	/// Tournament Tests ///
+	/// Initial Tournaments ///
+
+	/// PGA Tour 2021
+	Tournament t1 = new Tournament("2021-03-30", "2021-03-31", "St. John's", 50.00, 1000.00,
+			new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
+			new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey"))
+	);
+
+	/// PGA Tour 2022
+	Tournament t2 = new Tournament("2022-03-30", "2022-03-31", "St. John's", 100.00, 2000.00,
+			new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
+			new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey"))
+	);
+
+	/// PGA Tour 2023
+	Tournament t3 = new Tournament("2023-03-30", "2023-03-31", "St. John's", 200.00, 3000.00,
+			new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
+			new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey"))
+	);
+
+	/// Tournament Tests ///
+
+	@Test
+	public void testTournamentGetMethods(){
+		Assertions.assertEquals("2021-03-30",t1.getStartDate());
+		Assertions.assertEquals("2021-03-31",t1.getEndDate());
+		Assertions.assertEquals("St. John's",t1.getLocation());
+		Assertions.assertEquals(50.00,t1.getEntryFee());
+		Assertions.assertEquals(1000.00,t1.getCashPrizeAmount());
+		Assertions.assertEquals("Tyler Downey",t1.getParticipatingMembers().get(0));
+		Assertions.assertEquals("Dryden Bussey",t1.getFinalStandings().get(0));
+	}
+
+	// Test TournamentServiceClass
+	@Test
+	public void testTournamentAccessServiceInsertTournament () {
+		TournamentAccessService tas = new TournamentAccessService();
+
+		tas.insertTournament(t2);
+
+		List<Tournament> tournamentList = tas.selectAllTournaments();
+
+		Assertions.assertEquals(tas.selectAllTournaments().get(0).getStartDate(), t2.getStartDate());
+	}
+
+	@Test
+	public void testTournamentAccessServiceSelectTournamentByStartDate() {
+		TournamentAccessService tas = new TournamentAccessService();
+
+		tas.insertTournament(t2);
+		tas.insertTournament(t2);
+
+		Optional<Tournament> tournament1 = tas.selectTournamentByStartDate("2022-03-30");
+		Optional<Tournament> tournament2 = tas.selectTournamentByStartDate("2022-03-30");
+
+		Assertions.assertEquals("2022-03-30", tournament1.get().getStartDate());
+		Assertions.assertEquals("2022-03-30", tournament2.get().getStartDate());
+
+	}
+	@Test
+	public void testTournamentAccessServiceSelectTournamentByEndDate() {
+		TournamentAccessService tas = new TournamentAccessService();
+
+		tas.insertTournament(t2);
+		tas.insertTournament(t3);
+
+		Optional<Tournament> tournament1 = tas.selectTournamentByEndDate("2022-03-31");
+		Optional<Tournament> tournament2 = tas.selectTournamentByEndDate("2023-03-31");
+
+		Assertions.assertEquals("2022-03-31", tournament1.get().getEndDate());
+		Assertions.assertEquals("2023-03-31", tournament2.get().getEndDate());
+	}
+
+	@Test
+	public void testSelectTournamentByLocation() {
+		TournamentAccessService tas = new TournamentAccessService();
+
+		tas.insertTournament(t2);
+		tas.insertTournament(t3);
+
+		Optional<Tournament> tournament1 = tas.selectTournamentByLocation("St. John's");
+		Optional<Tournament> tournament2 = tas.selectTournamentByLocation("St. John's");
+
+		Assertions.assertEquals("St. John's", tournament1.get().getLocation());
+		Assertions.assertEquals("St. John's", tournament2.get().getLocation());
+	}
 
 }

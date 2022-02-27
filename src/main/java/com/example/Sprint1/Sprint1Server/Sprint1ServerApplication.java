@@ -55,15 +55,15 @@ public class Sprint1ServerApplication {
 
 
 		// Create tournaments for database
-		Tournament t1 = new Tournament("2021-03-30", "2021-03-31", "St. John's", 50.00, 1000.00,
+		Tournament t1 = new Tournament("2021-03-30", "2021-03-31", "NL", 50.00, 1000.00,
 				new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
 				new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey")));
 
-		Tournament t2 = new Tournament("2022-03-30", "2022-03-31", "St. John's", 100.00, 2000.00,
+		Tournament t2 = new Tournament("2022-03-30", "2022-03-31", "BC", 100.00, 2000.00,
 				new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
 				new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey")));
 
-		Tournament t3 = new Tournament("2023-03-30", "2023-03-31", "St. John's", 200.00, 3000.00,
+		Tournament t3 = new Tournament("2023-03-30", "2023-03-31", "SK", 200.00, 3000.00,
 				new ArrayList<String>(Arrays.asList("Tyler Downey", "Scott Downey", "Dryden Bussey", "Leah Gregory")),
 				new ArrayList<String>(Arrays.asList("Dryden Bussey", "Scott Downey", "Leah Gregory", "Tyler Downey")));
 
